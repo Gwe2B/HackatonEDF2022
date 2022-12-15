@@ -28,8 +28,8 @@ En option placer aussi
 directement à des cases plus élevées (+N cases)
 - 2 ou plus cases « dépannage / retour en arrière » qui obligent, quand on y atterri, à reculer
 vers des cases plus basses (-N cases)
-Le jeu devra également prendre en compte le signal Recharge Vehicule Electrique, publié
-par EDF sur son OpenData :
+Le jeu devra également prendre en compte le [signal Recharge Vehicule Electrique, publié
+par EDF sur son OpenData](https://opendata-corse.edf.fr/explore/dataset/signal-reseau-corse-recharge-vehicule-electrique/information/) :
 Il faudra alors une notion de temps, ex. le jeu commence à 0h, à chaque tour le temps
 avance de (1h 2h 3h, etc. à ajuster).
 3
