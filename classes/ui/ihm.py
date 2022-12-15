@@ -2,13 +2,13 @@ import math, sys, pygame
 from typing import Tuple
 from pygame.locals import QUIT
 
-from classes.dice import Dice
 from classes.game import Game
+from classes.request_manager import RequestManager
 from classes.ui.battery import Battery
 from classes.ui.button import Button
 from classes.ui.case import Case
 from classes.ui.dice_rolling import DiceUI
-from classes.voiture import Voiture
+from classes.ui.Text import Text
 
 pygame.init()
 
@@ -41,6 +41,9 @@ class IHM:
         button.set_on_click(self.game.play_charge_car)
         self.buttons.append(button)
 
+        self.texts = [Text(self.screen, (0,0), (100, 20), 'Charge :')]
+        self.charge_state = Text(self.screen, (100,0), (100, 20), RequestManager.records[self.game.get_time()].get_etat_system())
+
     def __update_interface(self):
         self.screen.fill(IHM.WHITE)
         for b in self.buttons:
@@ -48,7 +51,9 @@ class IHM:
         
         for case in self.cases:
             case.draw()
-
+        
+        for t in self.texts:
+            t.draw()
         self.battery_display.set_battery_lvl(self.game.players[0].get_charge_lvl())
         self.dice_display.set_value(self.game.dice.get_value())
 
@@ -62,6 +67,9 @@ class IHM:
             center = (center[0] + case_dim[0]/2, center[1] + case_dim[1]/2)
             pygame.draw.circle(self.screen, IHM.BLACK, center, 5)
     
+        self.charge_state.set_text(RequestManager.records[self.game.get_time()].get_etat_system())
+        self.charge_state.draw()
+        
     def __initializing_board(self):
         #variable de grandeur d'une case
         case_size = (50,50)
