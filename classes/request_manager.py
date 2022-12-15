@@ -1,5 +1,5 @@
-import requests
 from model.api_fields import ApiField
+import requests
 
 class RequestManager:
     """

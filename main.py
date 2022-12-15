@@ -1,25 +1,22 @@
-#importation du module pygame
-import pygame
 import math
+from pygame.locals import *
+import pygame, sys
+from typing import Tuple
+from classes.ui.case import Case
 
-#intialition pygame
+white:Tuple[int] = (0xFF, 0xFF, 0xFF)
+black:Tuple[int] = (0x00, 0x00, 0x00)
+screen_size:Tuple[int] = (1500, 600)
+
 pygame.init()
-
-# Initialing Color
-white = (255,255,255)
-black = (0,0,0)
-
-#initialisation de la variable font
-font = pygame.font.SysFont("Forte", 25)
-
-#création de la fenetre du jeu 
-screen_size = (1500, 600)
-screen_ctr  = (math.floor(screen_size[0] / 2), math.floor(screen_size[1] / 2))
 screen = pygame.display.set_mode(screen_size)
 screen.fill(white)
 
+cases:list = []
+
 #variable de grandeur d'une case
 case_size = 50
+screen_ctr  = (math.floor(screen_size[0] / 2), math.floor(screen_size[1] / 2))
 
 #initialisation des variable du plateau
 pos_next = (screen_ctr[0] - case_size, screen_ctr[1] - case_size)
@@ -30,8 +27,7 @@ reverse = False
 
 #Fonction du plateau à 60 case
 for i in range(60, 0, -1):
-    pygame.draw.rect(screen, (black), (pos_next[0], pos_next[1], case_size, case_size), 2) #création d'une case
-    screen.blit(font.render(str(i), True, black), pos_next) #création du nombre à l'intérieur de la case
+    cases.append(Case(pos_next, case_size, i))
     placed = placed + 1
 
     if placed >= line_case_count:
@@ -52,10 +48,17 @@ for i in range(60, 0, -1):
     else:
         pos_next = (pos_next[0], pos_next[1] + buf)
     
-    pygame.display.flip() #update de l'affichage
+pygame.display.flip() #update de l'affichage
 
-try:
-    while True:
-        pass
-except KeyboardInterrupt:
-    pygame.quit()
+def update_plate():
+    for case in cases:
+        case.draw()
+
+while True: # main game loop
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit()
+
+    update_plate()
+    pygame.display.update()
