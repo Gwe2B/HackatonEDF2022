@@ -2,7 +2,7 @@ from datetime import datetime
 
 class ApiField:
     def __init__(self, **kwargs) -> None:
-        self.__signal_strenght = kwargs['puissance_maximale']
+        self.__signal_strenght = kwargs['puissance_maximale'] / 100
         self.__etat_system = kwargs['etat_du_systeme_electrique_pour_la_recharge']
 
         buf:str = kwargs['date']

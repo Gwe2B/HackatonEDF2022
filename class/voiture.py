@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class NotEnoughCharge(ValueError):
     """
     Author     : Gwenaël
@@ -36,7 +37,7 @@ class Voiture:
     """
     Author     : Gwenaël
     Date       : 15/12/2022
-    Version    : 1
+    Version    : 2
     Description: Car representation
     """
     
@@ -45,9 +46,10 @@ class Voiture:
     CLIMB_DECHARGE:int = 4
 
     def __init__(self) -> None:
+        self.__position:int = 0
         self.__charge_lvl:int = 6
     
-    def deplacement(self, inclinaison:int = PenteEnum.NONE) -> None:
+    def deplacement(self, distance:int, inclinaison:int = PenteEnum.NONE) -> None:
         """simulate the car deplacement
 
         :param inclinaison: Specify the type of deplacement, defaults to PenteEnum.NONE
@@ -62,6 +64,7 @@ class Voiture:
             decharge_lvl = Voiture.FLAT_DECHARGE
         
         self.__decharge(decharge_lvl)
+        self.__position = self.__position + distance
     
     def get_charge_lvl(self) -> int:
         return self.__charge_lvl
