@@ -27,7 +27,7 @@ reverse = False
 
 #Fonction du plateau à 60 case
 for i in range(60, 0, -1):
-    cases.append(Case(pos_next, case_size, i))
+    cases.append(Case(pos_next, case_size, i, screen))
     placed = placed + 1
 
     if placed >= line_case_count:
