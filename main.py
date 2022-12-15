@@ -17,13 +17,13 @@ screen = pygame.display.set_mode(screen_size)
 screen.fill(white)
 
 #création du bouton de déplacement
-button1 = Button(screen, (200, 40), (100, 30), 'déplacement', 5)
+button1 = Button(screen, (200, 40), (150, 30), 'déplacement', 5)
 button1.set_on_click(lambda: print('click on button 1'))
 #création du bouton de recharge
 button2 = Button(screen, (200, 80), (150, 30), 'recharge', 5)
 button2.set_on_click(lambda: print('click on button 2'))
 #création du bouton de lancer de dé
-button3 = Button(screen, (200, 120), (200, 30), 'lancer de dé', 5)
+button3 = Button(screen, (200, 120), (150, 30), 'lancer de dé', 5)
 button3.set_on_click(lambda: print('click on button 3'))
 
 buttons = [button1, button2, button3]

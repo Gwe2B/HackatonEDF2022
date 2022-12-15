@@ -11,15 +11,15 @@ pygame.init()
 gui_font = pygame.font.Font(None,30)
 
 class Button(UIElement):
-	DEFAULT_TEXT_COLOR:str = '#fff'
+	DEFAULT_TEXT_COLOR:str = '#FFFFFF'
 	DEFAULT_BG_COLOR:str = '#475F77'
 	DEFAULT_HOVER_COLOR:str = '#D74B4B'
 	DEFAULT_BOTTOM_COLOR:str = '#354B5E'
 
-	def __init__(self,screen, position, dimension, text,elevation): 
+	def __init__(self,screen, position, dimension, text, elevation): 
 		super().__init__(screen, position, dimension)
 
-		self.reset_colors()
+		self.reset_color()
 
 		#Core attributes 
 		self.pressed = False
