@@ -1,9 +1,6 @@
-import math
-import sys
+import math, sys, pygame
 from typing import Tuple
-
-import pygame
-from pygame.locals import *
+from pygame.locals import QUIT
 
 from classes.dice import Dice
 from classes.game import Game
@@ -64,11 +61,6 @@ class IHM:
             case_dim = p.current_case.get_dimension()
             center = (center[0] + case_dim[0]/2, center[1] + case_dim[1]/2)
             pygame.draw.circle(self.screen, IHM.BLACK, center, 5)
-
-        # index = player.get_position() + 1
-        # pawn_pos = cases[-index]
-        # pawn_pos = (pawn_pos._position[0] + pawn_pos._dimension[0]/2, pawn_pos._position[1] + pawn_pos._dimension[1]/2)
-        # pygame.draw.circle(screen, black, pawn_pos, 5)
     
     def __initializing_board(self):
         #variable de grandeur d'une case

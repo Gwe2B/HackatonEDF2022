@@ -1,8 +1,7 @@
-from pygame.locals import *
-import pygame, sys
 from typing import Tuple
-import numpy as np 
 from math import floor 
+import numpy as np 
+import pygame
 
 try:
     from classes.ui.ui_element import UIElement
