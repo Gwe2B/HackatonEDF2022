@@ -1,5 +1,5 @@
-from model.api_fields import ApiField
 import requests
+from model.api_fields import ApiField
 
 class RequestManager:
     """
@@ -18,7 +18,3 @@ class RequestManager:
                 self.records.append(ApiField(**(record['fields'])))
         else :
             return response.status_code
-        
-
-
-        

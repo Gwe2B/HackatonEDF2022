@@ -1,4 +1,5 @@
 import random
+
 class Dice:
     """
     Author  : Amine
@@ -7,12 +8,12 @@ class Dice:
     Description : this class handles generating a random number for dices 
     deplacement dice and charge dice
     """
+
+    BORNE_INF:int = 1
+    BORNE_SUP:int = 6
     
-    def __init__(self, type):
-        self.type = type
-    def throwGod(self) :
-        result = random.randint(1, 6)
-        return result 
+    def throw(self) :
+        return random.randint(Dice.BORNE_INF, Dice.BORNE_SUP)
 
 
 

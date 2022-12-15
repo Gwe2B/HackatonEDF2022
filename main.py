@@ -7,8 +7,6 @@ import sys
 #intialition pygame
 pygame.init()
 
-
-
 # Initialing Color
 white = (255,255,255)
 black = (0,0,0)
@@ -19,8 +17,6 @@ size_y = 600
 screen = pygame.display.set_mode((size_x,size_y))
 screen.fill(white)
 
-
-
 #initialisation de la valeur run
 run = True
 while run:
@@ -29,8 +25,6 @@ while run:
         if event.type == pygame.QUIT: # If user clicked close
               run = False # Flag that we are done so we can exit the while loop
 
-    
-    
     # Drawing plateau
     font = pygame.font.SysFont("Forte", 25)
     fichier = open("plateau.txt","r")
