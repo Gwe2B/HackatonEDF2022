@@ -4,13 +4,13 @@ from typing import Tuple
 
 import pygame
 from pygame.locals import *
-from classes.ui.battery import Battery
 
+from classes.Dice import Dice
+from classes.ui.battery import Battery
 from classes.ui.button import Button
 from classes.ui.case import Case
-from classes.voiture import Voiture
-from classes.Dice import Dice
 from classes.ui.dice_rolling import DiceUI
+from classes.voiture import Voiture
 
 white:Tuple[int] = (0xFF, 0xFF, 0xFF)
 black:Tuple[int] = (0x00, 0x00, 0x00)
@@ -31,9 +31,12 @@ def launch_dice():
     dice_display.set_value(launch_value)
 
 def displacement():
-    player.deplacement(launch_value)
-    battery_display.set_battery_lvl(player.get_charge_lvl())
-    launch_dice()
+    if player.get_charge_lvl() >= 2:
+        player.deplacement(launch_value)
+        battery_display.set_battery_lvl(player.get_charge_lvl())
+        launch_dice()
+    else:
+        print("You do not have the battery for this.")
 
 def charge_car():
     player.charge(launch_value)

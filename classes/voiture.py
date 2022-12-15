@@ -45,6 +45,8 @@ class Voiture:
     FLAT_DECHARGE:int = 2
     CLIMB_DECHARGE:int = 4
 
+    MAX_CHARGE:int = 6
+
     def __init__(self) -> None:
         self.__position:int = 0
         self.__charge_lvl:int = 6
@@ -82,4 +84,7 @@ class Voiture:
             raise NotEnoughCharge
     
     def charge(self, lvl: int) -> None:
-        self.__charge_lvl = self.__charge_lvl + lvl
+        if (self.__charge_lvl + lvl) <= Voiture.MAX_CHARGE:
+            self.__charge_lvl = self.__charge_lvl + lvl
+        else:
+            self.__charge_lvl = Voiture.MAX_CHARGE
