@@ -6,7 +6,7 @@ class RequestManager:
     Author  : Amine
     Version : 1
     Date    : 15/12/2022
-    Description : this class handles the request to API and returning simple exploitable data as tha state for charge and data
+    Description : this class handles the request to API and returning simple exploitable data as tha state for charge and corresponding date
 
     """
     def __init__(self, url):
