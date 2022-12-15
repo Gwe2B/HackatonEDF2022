@@ -1,62 +1,61 @@
 #importation du module pygame
 import pygame
-from pygame.locals import *
-from pygame import rect, Rect
-import sys
+import math
 
 #intialition pygame
 pygame.init()
-
-
 
 # Initialing Color
 white = (255,255,255)
 black = (0,0,0)
 
+#initialisation de la variable font
+font = pygame.font.SysFont("Forte", 25)
+
 #création de la fenetre du jeu 
-size_x = 1500
-size_y = 600
-screen = pygame.display.set_mode((size_x,size_y))
+screen_size = (1500, 600)
+screen_ctr  = (math.floor(screen_size[0] / 2), math.floor(screen_size[1] / 2))
+screen = pygame.display.set_mode(screen_size)
 screen.fill(white)
 
+#variable de grandeur d'une case
+case_size = 50
 
+#initialisation des variable du plateau
+pos_next = (screen_ctr[0] - case_size, screen_ctr[1] - case_size)
+line_case_count = 3
+placed = 0
+row = True
+reverse = False
 
-#initialisation de la valeur run
-run = True
-while run:
-    # --- Main event loop
-    for event in pygame.event.get(): # User did something
-        if event.type == pygame.QUIT: # If user clicked close
-              run = False # Flag that we are done so we can exit the while loop
+#Fonction du plateau à 60 case
+for i in range(60, 0, -1):
+    pygame.draw.rect(screen, (black), (pos_next[0], pos_next[1], case_size, case_size), 2) #création d'une case
+    screen.blit(font.render(str(i), True, black), pos_next) #création du nombre à l'intérieur de la case
+    placed = placed + 1
 
+    if placed >= line_case_count:
+        if(not row):
+            reverse = not reverse
+
+        row = not row
+        line_case_count = line_case_count + 1
+        placed = 1
+
+    if reverse:
+        buf = case_size * (-1)
+    else:
+        buf = case_size
+
+    if row:
+        pos_next = (pos_next[0] + buf, pos_next[1])
+    else:
+        pos_next = (pos_next[0], pos_next[1] + buf)
     
-    
-    # Drawing plateau
-    font = pygame.font.SysFont("Forte", 25)
-    fichier = open("plateau.txt","r")
+    pygame.display.flip() #update de l'affichage
 
-    niv = []
-    for ligne in fichier:
-        ligne_niv = []
-        for i in ligne:
-            if i != '\n':
-                ligne_niv.append(i)
-        niv.append(ligne_niv)  
-    fichier.close()
-
-    num_ligne = 0
-    number = 0
-    for ligne in niv:
-        num_case = 0
-        for i in ligne:
-            if i == 'X':
-                pygame.draw.rect(screen, (black), (54*num_case,54*num_ligne, 50, 50), 2)
-                screen.blit(font.render(str(number), True, black), (54*num_case,54*num_ligne))
-                number += 1
-            elif i == 'o':
-                pygame.draw.rect(screen, (white), (54*num_case,54*num_ligne, 50, 50), 2)
-            num_case += 1
-        num_ligne += 1 
-    pygame.display.flip()
-        
-pygame.quit()
+try:
+    while True:
+        pass
+except KeyboardInterrupt:
+    pygame.quit()
