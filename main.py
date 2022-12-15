@@ -15,11 +15,11 @@ screen.fill(white)
 cases:list = []
 
 #variable de grandeur d'une case
-case_size = 50
+case_size = (50,50)
 screen_ctr  = (math.floor(screen_size[0] / 2), math.floor(screen_size[1] / 2))
 
 #initialisation des variable du plateau
-pos_next = (screen_ctr[0] - case_size, screen_ctr[1] - case_size)
+pos_next = (screen_ctr[0] - case_size[0], screen_ctr[1] - case_size[1])
 line_case_count = 3
 placed = 0
 row = True
@@ -27,7 +27,7 @@ reverse = False
 
 #Fonction du plateau à 60 case
 for i in range(60, 0, -1):
-    cases.append(Case(pos_next, case_size, i, screen))
+    cases.append(Case(screen, pos_next, case_size, i))
     placed = placed + 1
 
     if placed >= line_case_count:
@@ -39,9 +39,9 @@ for i in range(60, 0, -1):
         placed = 1
 
     if reverse:
-        buf = case_size * (-1)
+        buf = case_size[0] * (-1)
     else:
-        buf = case_size
+        buf = case_size[0]
 
     if row:
         pos_next = (pos_next[0] + buf, pos_next[1])
