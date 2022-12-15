@@ -1,9 +1,12 @@
 import math
-from pygame.locals import *
-import pygame, sys
+import sys
 from typing import Tuple
-from classes.ui.case import Case
+
+import pygame
+from pygame.locals import *
+
 from classes.ui.button import Button
+from classes.ui.case import Case
 
 white:Tuple[int] = (0xFF, 0xFF, 0xFF)
 black:Tuple[int] = (0x00, 0x00, 0x00)
@@ -14,11 +17,14 @@ screen = pygame.display.set_mode(screen_size)
 screen.fill(white)
 
 #création du bouton de déplacement
-button1 = Button('déplacement',200,40,(30,100),5)
+button1 = Button(screen, (200, 40), (100, 30), 'déplacement', 5)
+button1.set_on_click(lambda: print('click on button 1'))
 #création du bouton de recharge
-button2 = Button('recharge',200,40,(30,150),5)
+button2 = Button(screen, (200, 80), (150, 30), 'recharge', 5)
+button2.set_on_click(lambda: print('click on button 2'))
 #création du bouton de lancer de dé
-button3 = Button('lancer de dé',200,40,(30,200),5)
+button3 = Button(screen, (200, 120), (200, 30), 'lancer de dé', 5)
+button3.set_on_click(lambda: print('click on button 3'))
 
 buttons = [button1, button2, button3]
 def buttons_draw():
