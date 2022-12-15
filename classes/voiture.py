@@ -48,6 +48,7 @@ class Voiture:
     MAX_CHARGE:int = 6
 
     def __init__(self) -> None:
+        self.current_case = 0
         self.__position:int = 0
         self.__charge_lvl:int = 6
     

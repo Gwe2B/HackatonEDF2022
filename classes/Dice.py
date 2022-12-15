@@ -11,9 +11,15 @@ class Dice:
 
     BORNE_INF:int = 1
     BORNE_SUP:int = 6
+
+    def __init__(self) -> None:
+        self.__value = 0
     
     def throw(self) :
-        return random.randint(Dice.BORNE_INF, Dice.BORNE_SUP)
+        self.__value = random.randint(Dice.BORNE_INF, Dice.BORNE_SUP)
+
+    def get_value(self):
+        return self.__value
 
 
 

@@ -8,6 +8,12 @@ class UIElement(ABC):
         self.screen = screen
         self._position = position
         self._dimension = dimension
+
+    def get_position(self) -> Tuple[int]:
+        return self._position
+
+    def get_dimension(self) -> Tuple[int]:
+        return self._dimension
     
     @abstractmethod
     def draw(self) -> None:
