@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Tuple
 
+
 class UIElement(ABC):
     def __init__(self, screen, position:Tuple[int], dimension:Tuple[int]) -> None:
         super().__init__()
@@ -11,3 +12,4 @@ class UIElement(ABC):
     @abstractmethod
     def draw(self) -> None:
         pass
+
