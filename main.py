@@ -4,9 +4,13 @@ from typing import Tuple
 
 import pygame
 from pygame.locals import *
+from classes.ui.battery import Battery
 
 from classes.ui.button import Button
 from classes.ui.case import Case
+from classes.voiture import Voiture
+from classes.Dice import Dice
+from classes.ui.dice_rolling import DiceUI
 
 white:Tuple[int] = (0xFF, 0xFF, 0xFF)
 black:Tuple[int] = (0x00, 0x00, 0x00)
@@ -16,17 +20,35 @@ pygame.init()
 screen = pygame.display.set_mode(screen_size)
 screen.fill(white)
 
+dice_display = DiceUI(screen, (100, 200), (100, 100))
+battery_display = Battery(screen, (1100, 0), (200, 512))
+player = Voiture()
+launch_value = None
+dice = Dice()
+def launch_dice():
+    global launch_value
+    launch_value = dice.throw()
+    dice_display.set_value(launch_value)
+
+def displacement():
+    player.deplacement(launch_value)
+    battery_display.set_battery_lvl(player.get_charge_lvl())
+    launch_dice()
+
+def charge_car():
+    player.charge(launch_value)
+    battery_display.set_battery_lvl(player.get_charge_lvl())
+    launch_dice()
+
+
 #création du bouton de déplacement
 button1 = Button(screen, (200, 40), (150, 30), 'déplacement', 5)
-button1.set_on_click(lambda: print('click on button 1'))
+button1.set_on_click(displacement)
 #création du bouton de recharge
 button2 = Button(screen, (200, 80), (150, 30), 'recharge', 5)
-button2.set_on_click(lambda: print('click on button 2'))
-#création du bouton de lancer de dé
-button3 = Button(screen, (200, 120), (150, 30), 'lancer de dé', 5)
-button3.set_on_click(lambda: print('click on button 3'))
+button2.set_on_click(charge_car)
 
-buttons = [button1, button2, button3]
+buttons = [button1, button2]
 def buttons_draw():
 	for b in buttons:
 		b.draw()
@@ -70,10 +92,19 @@ for i in range(60, 0, -1):
 pygame.display.flip() #update de l'affichage
 
 def update_plate():
+    screen.fill(white)
     for case in cases:
         case.draw()
-        buttons_draw()
+    buttons_draw()
+    battery_display.draw()
+    dice_display.draw()
 
+    index = player.get_position() + 1
+    pawn_pos = cases[-index]
+    pawn_pos = (pawn_pos._position[0] + pawn_pos._dimension[0]/2, pawn_pos._position[1] + pawn_pos._dimension[1]/2)
+    pygame.draw.circle(screen, black, pawn_pos, 5)
+
+launch_dice()
 while True: # main game loop
     for event in pygame.event.get():
         if event.type == QUIT:

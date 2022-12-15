@@ -1,6 +1,10 @@
 from typing import Tuple
 import pygame
-from classes.ui.ui_element import UIElement
+
+try:
+    from classes.ui.ui_element import UIElement
+except ModuleNotFoundError:
+    from ui_element import UIElement
 
 
 class Battery(UIElement):
@@ -19,13 +23,13 @@ class Battery(UIElement):
     
     #Overriding
     def draw(self) -> None:
-        battery_lvl_height:int = (self._dimension[1]/Battery.BATTERY_MAX_LVL)
+        battery_lvl_height:int = (self._dimension[1]-50)/(Battery.BATTERY_MAX_LVL+1)
         battery_lvl_width:int = (self._dimension[0] - 2*Battery.MARGIN)
         x = self._position[0] + Battery.MARGIN
 
-        for i in range(0, self.__battery_lvl - 1):
+        for i in range(0, self.__battery_lvl):
             index = i + 1
-            y = (self._position[1] + self._dimension[1]) - (index*battery_lvl_height) - (index*Battery.MARGIN)
+            y = (self._position[1] + self._dimension[1]) - (index*battery_lvl_height) - ((index)*Battery.MARGIN)
             pygame.draw.rect(
                 self.screen,
                 (0,255,0),

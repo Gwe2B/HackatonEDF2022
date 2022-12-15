@@ -69,6 +69,9 @@ class Voiture:
     def get_charge_lvl(self) -> int:
         return self.__charge_lvl
 
+    def get_position(self) -> int:
+        return self.__position
+
     def __decharge(self, lvl: int) -> None:
         """
         :raises NotEnoughCharge: if the car does not have enough charge to perform the deplacement.

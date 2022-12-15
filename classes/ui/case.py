@@ -1,6 +1,10 @@
 from typing import Tuple
 import pygame
-from classes.ui.ui_element import UIElement
+
+try:
+    from classes.ui.ui_element import UIElement
+except ModuleNotFoundError:
+    from ui_element import UIElement
 
 pygame.init()
 
