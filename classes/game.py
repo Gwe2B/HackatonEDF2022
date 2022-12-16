@@ -12,8 +12,9 @@ class Game:
     Description: Hold the main logic of the game
     """
     
-    def __init__(self) -> None:
+    def __init__(self, ihm) -> None:
         self.players = [Voiture()]
+        self.ihm = ihm
 
         self.dice = Dice()
         self.player_to_play = 0
@@ -27,7 +28,10 @@ class Game:
 
     def update_player_pos(self) -> None:
         for p in self.players:
-            p.current_case = self.cases[-(p.get_position()+1)]
+            if p.get_position() < len(self.cases):
+                p.set_current_case(self.cases[-(p.get_position()+1)])
+            else:
+                self.ihm.end_game(0)
 
     def play_charge_car(self) -> None:
         """The player choose to charge his car."""

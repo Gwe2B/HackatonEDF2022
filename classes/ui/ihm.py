@@ -7,6 +7,10 @@ from classes.request_manager import RequestManager
 from classes.ui.battery import Battery
 from classes.ui.button import Button
 from classes.ui.case import Case
+from classes.ui.case_descente import CaseDescente
+from classes.ui.case_montee import CaseMontee
+from classes.ui.case_tunnel_backward import CaseTunnelBackward
+from classes.ui.case_tunnel_forward import CaseTunnelForward
 from classes.ui.dice_rolling import DiceUI
 from classes.ui.Text import Text
 from classes.ui.image import Image
@@ -24,7 +28,8 @@ class IHM:
     WHITE:Tuple[int, int, int] = (0xFF, 0xFF, 0xFF)
     BLACK:Tuple[int, int, int] = (0x00, 0x00, 0x00)
 
-    def __init__(self, size:Tuple[int, int]) -> None:
+    def __init__(self, size:Tuple[int, int], board_conf) -> None:
+        self.winner = None
         self.screen_size:Tuple[int, int] = size
         self.screen:pygame.Surface = pygame.display.set_mode(size)
         self.screen.fill(IHM.WHITE)
@@ -35,8 +40,8 @@ class IHM:
         self.buttons:list[Button] = []
         self.cases:list[Case] = []
 
-        self.__initializing_board()
-        self.game:Game = Game()
+        self.__initializing_board(board_conf)
+        self.game:Game = Game(self)
         self.game.cases = self.cases
         self.game.update_player_pos()
 
@@ -92,7 +97,7 @@ class IHM:
         self.charge_state.set_text(RequestManager.records[self.game.get_time()].get_etat_system())
         self.charge_state.draw()
         
-    def __initializing_board(self) -> None:
+    def __initializing_board(self, board_conf) -> None:
         #variable de grandeur d'une case
         case_size = (50,50)
         screen_ctr  = (math.floor(self.screen_size[0] / 2), math.floor(self.screen_size[1] / 2))
@@ -106,7 +111,21 @@ class IHM:
 
         #Fonction du plateau à 60 case
         for i in range(60, 0, -1):
-            self.cases.append(Case(self.screen, pos_next, case_size, i))
+            #self.cases.append(Case(self.screen, pos_next, case_size, i))
+            try:
+                if board_conf[f'{i}']['type'] == 'CLIMB':
+                    self.cases.append(CaseMontee(self.screen, pos_next, case_size, i))
+                elif board_conf[f'{i}']['type'] == 'DOWN':
+                    self.cases.append(CaseDescente(self.screen, pos_next, case_size, i))
+                elif board_conf[f'{i}']['type'] == 'FWD':
+                    self.cases.append(CaseTunnelForward(self.screen, pos_next, case_size, i, board_conf[f'{i}']['value']))
+                elif board_conf[f'{i}']['type'] == 'BACK':
+                    self.cases.append(CaseTunnelBackward(self.screen, pos_next, case_size, i, board_conf[f'{i}']['value']))
+                else:
+                    self.cases.append(Case(self.screen, pos_next, case_size, i))
+            except:
+                self.cases.append(Case(self.screen, pos_next, case_size, i))
+
             placed = placed + 1
 
             if placed >= line_case_count:
@@ -126,6 +145,10 @@ class IHM:
                 pos_next = (pos_next[0] + buf, pos_next[1])
             else:
                 pos_next = (pos_next[0], pos_next[1] + buf)
+
+    def end_game(self, p:int) -> None:
+        self.winner:int = p
+        pygame.event.post(pygame.event.Event(pygame.USEREVENT, {}))
         
     def mainloop(self) -> None:
         while True:
@@ -133,6 +156,12 @@ class IHM:
                 if event.type == QUIT:
                     pygame.quit()
                     sys.exit()
-        
-            self.__update_interface()
+
+                elif event.type == pygame.USEREVENT:
+                    self.screen.fill(IHM.WHITE)
+                    txt = Text(self.screen, (0,0), (100,20), f'PLayer {self.winner} Win')
+                    txt.draw()
+
+            if self.winner == None:
+                self.__update_interface()
             pygame.display.update()

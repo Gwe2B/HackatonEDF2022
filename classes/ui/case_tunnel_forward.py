@@ -14,7 +14,7 @@ class CaseTunnelForward(Case):
     Version    : 1
     """
 
-    STROKE_COLOR:Tuple[int, int, int] = (0xAA, 0xFF, 0x00)
+    STROKE_COLOR:Tuple[int, int, int] = (0, 255, 0)
     
     def __init__(self, screen, position:Tuple[int], dimension:Tuple[int], numero:int,forward_steps:int) -> None:
         super().__init__(screen, position, dimension, numero)

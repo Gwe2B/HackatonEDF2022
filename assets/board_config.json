@@ -1,0 +1,51 @@
+{
+    "5": {
+        "type": "CLIMB"
+    },
+
+    "18": {
+        "type": "CLIMB"
+    },
+
+    "36": {
+        "type": "CLIMB"
+    },
+
+    "42": {
+        "type": "CLIMB"
+    },
+
+    "50": {
+        "type": "CLIMB"
+    },
+
+    "10": {
+        "type": "DOWN"
+    },
+
+    "19": {
+        "type": "DOWN"
+    },
+
+    "26": {
+        "type": "DOWN"
+    },
+
+    "34": {
+        "type": "DOWN"
+    },
+
+    "58": {
+        "type": "DOWN"
+    },
+
+    "25": {
+        "type": "FWD",
+        "value": 5
+    },
+
+    "59": {
+        "type": "BACK",
+        "value": 20
+    }
+}

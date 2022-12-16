@@ -40,10 +40,9 @@ class Voiture:
         """
 
         decharge_lvl:int = self.current_case.get_needed_battery()
-        raccourcis:int = self.current_case.action_to_take()
 
         self.__decharge(decharge_lvl)
-        self.__position = self.__position + (distance + raccourcis)
+        self.__position = self.__position + distance
         self.__score = self.__score + distance * Voiture.COEFF_DEPLACEMENT
     
     def get_charge_lvl(self) -> int:
@@ -51,6 +50,10 @@ class Voiture:
 
     def get_position(self) -> int:
         return self.__position
+
+    def set_current_case(self, new_case) -> None:
+        self.__position = self.__position + new_case.action_to_take()
+        self.current_case = new_case
 
     def __decharge(self, lvl: int) -> None:
         """

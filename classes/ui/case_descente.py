@@ -14,7 +14,7 @@ class CaseDescente(Case):
     Date       : 16/12/2022
     Version    : 1
     """
-    STROKE_COLOR:Tuple[int, int, int] = (0xC9, 0xCC, 0x3F)
+    STROKE_COLOR:Tuple[int, int, int] = (199, 0, 57)
 
     needed_battery:int= 1
 
