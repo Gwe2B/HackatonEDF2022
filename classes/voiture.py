@@ -1,5 +1,8 @@
 from typing import Tuple
 from enum import Enum
+from tkinter import *
+from tkinter import messagebox
+
 
 
 class NotEnoughCharge(ValueError):
@@ -29,7 +32,7 @@ class PenteEnum(Enum):
 
         :param __o: The object to compare to
         :type __o: object
-        :return: True if the two object is identique, otherwise false
+        :return: True if the two object are identique, otherwise false
         :rtype: bool
         """
         return (self.__class__ is __o.__class__) and (self.value == __o.value)
@@ -41,10 +44,7 @@ class Voiture:
     Version    : 2
     Description: Car representation
     """
-    
-    DOWN_DECHARGE:int = 1
-    FLAT_DECHARGE:int = 2
-    CLIMB_DECHARGE:int = 4
+
 
     MAX_CHARGE:int = 6
     COEFF_DEPLACEMENT:int = 10
@@ -65,16 +65,11 @@ class Voiture:
         :param inclinaison: Specify the type of deplacement, defaults to PenteEnum.NONE
         :type inclinaison: int
         """
-        decharge_lvl:int = 0
-        if inclinaison == PenteEnum.MONTEE:
-            decharge_lvl = Voiture.CLIMB_DECHARGE
-        elif inclinaison == PenteEnum.DESCENTE:
-            decharge_lvl = Voiture.DOWN_DECHARGE
-        else:
-            decharge_lvl = Voiture.FLAT_DECHARGE
-        
+        decharge_lvl:int = self.current_case.get_needed_battery()
         self.__decharge(decharge_lvl)
-        self.__position = self.__position + distance
+        raccourcis = self.current_case.action_to_take()
+        self.__position = self.__position + (distance + raccourcis)
+        
         self.__score = self.__score + distance * Voiture.COEFF_DEPLACEMENT
     
     def get_charge_lvl(self) -> int:
