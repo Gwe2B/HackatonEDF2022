@@ -14,6 +14,8 @@ class Button(UIElement):
 	DEFAULT_BG_COLOR:str = '#475F77'
 	DEFAULT_HOVER_COLOR:str = '#D74B4B'
 	DEFAULT_BOTTOM_COLOR:str = '#354B5E'
+	BLUEEDF:str = '#07387A'
+	ORANGEEDF:str = '#FF5E11'
 
 	def __init__(self,screen, position, dimension, text, elevation): 
 		super().__init__(screen, position, dimension)
@@ -40,8 +42,8 @@ class Button(UIElement):
 	def reset_color(self):
 		self.__text_color = Button.DEFAULT_TEXT_COLOR
 		self.__bg_color = Button.DEFAULT_BG_COLOR
-		self.__hover_color = Button.DEFAULT_HOVER_COLOR
-		self.__bottom_color = Button.DEFAULT_BOTTOM_COLOR
+		self.__hover_color = Button.ORANGEEDF
+		self.__bottom_color = Button.BLUEEDF
 
 	def set_text_color(self, color:str):
 		self.text_surf = gui_font.render(self.text, True, color)
