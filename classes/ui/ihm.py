@@ -22,8 +22,8 @@ class IHM:
         self.screen.fill(IHM.WHITE)
 
         # Initializing components
-        self.dice_display = DiceUI(self.screen, (100, 200), (100, 100))
-        self.battery_display = Battery(self.screen, (1100, 0), (200, 512))
+        self.dice_display = DiceUI(self.screen, (675, 780), (100, 100))
+        self.battery_display = Battery(self.screen, (1100, 200), (200, 512))
         self.buttons = []
         self.cases = []
 
@@ -33,16 +33,21 @@ class IHM:
         self.game.update_player_pos()
 
         # Creating the buttons
-        button = Button(self.screen, (200, 40), (150, 30), 'Déplacement', 5)
+        button = Button(self.screen, (550, 730), (150, 30), 'Déplacement', 5)
         button.set_on_click(self.game.play_displace)
         self.buttons.append(button)
         
-        button = Button(self.screen, (200, 80), (150, 30), 'Recharge', 5)
+        button = Button(self.screen, (750, 730), (150, 30), 'Recharge', 5)
         button.set_on_click(self.game.play_charge_car)
         self.buttons.append(button)
 
         self.texts = [Text(self.screen, (0,0), (100, 20), 'Charge :')]
-        self.charge_state = Text(self.screen, (100,0), (100, 20), RequestManager.records[self.game.get_time()].get_etat_system())
+        self.charge_state = Text(self.screen, (100,0), (1000, 20), RequestManager.records[self.game.get_time()].get_etat_system())
+
+        #Creating the logos
+        logoEDF = pygame.image.load('assets/logoEDF.png')
+        logoJeu = pygame.image.load('assets/logoJeu.png')
+
 
     def __update_interface(self):
         self.screen.fill(IHM.WHITE)
