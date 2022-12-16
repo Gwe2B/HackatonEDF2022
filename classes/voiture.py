@@ -1,8 +1,5 @@
 from typing import Tuple
 from enum import Enum
-from tkinter import *
-from tkinter import messagebox
-
 
 
 class NotEnoughCharge(ValueError):
@@ -14,28 +11,6 @@ class NotEnoughCharge(ValueError):
     the deplacement.
     """
     pass
-
-class PenteEnum(Enum):
-    """
-    Author     : Gwenaël
-    Date       : 15/12/2022
-    Version    : 1
-    Description: Enumerate all the possibilities of the deplacement types.
-    """
-    
-    MONTEE = 1
-    NONE = 0
-    DESCENTE = -1
-
-    def __eq__(self, __o: object) -> bool:
-        """Just compare the current object with the given one
-
-        :param __o: The object to compare to
-        :type __o: object
-        :return: True if the two object are identique, otherwise false
-        :rtype: bool
-        """
-        return (self.__class__ is __o.__class__) and (self.value == __o.value)
 
 class Voiture:
     """
@@ -59,12 +34,7 @@ class Voiture:
         self.__score:int = 0
         self.__stats:Tuple[int, int] = (0, 0)
     
-    def deplacement(self, distance:int, inclinaison:int = PenteEnum.NONE) -> None:
-        """simulate the car deplacement
-
-        :param inclinaison: Specify the type of deplacement, defaults to PenteEnum.NONE
-        :type inclinaison: int
-        """
+    def deplacement(self, distance:int) -> None:
         decharge_lvl:int = self.current_case.get_needed_battery()
         self.__decharge(decharge_lvl)
         raccourcis = self.current_case.action_to_take()
