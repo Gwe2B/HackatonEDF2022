@@ -42,14 +42,17 @@ class IHM:
         button.set_on_click(self.game.play_charge_car)
         self.buttons.append(button)
 
-        self.texts = [Text(self.screen, (0,0), (100, 20), 'Charge :')]
-        self.charge_state = Text(self.screen, (100,0), (1000, 20), RequestManager.records[self.game.get_time()].get_etat_system())
+        self.texts = [Text(self.screen, (680,20), (100, 20), 'Charge :')]
+        self.charge_state = Text(self.screen, (780,20), (1000, 20), RequestManager.records[self.game.get_time()].get_etat_system())
 
         #Creating the logos
         self.edfImg = Image(self.screen, (50, 50), (400, 200), 'assets/logoEDF.png')
         self.jeuImg = Image(self.screen, (50, 300), (400, 200), 'assets/logoJeu.png')
 
-
+        #modification des propiété de la fenetre de jeu 
+        pygame.display.set_caption('Power Game')
+        Icon = pygame.image.load('assets/favicon.png')
+        pygame.display.set_icon(Icon)
 
     def __update_interface(self):
         self.screen.fill(IHM.WHITE)
