@@ -13,7 +13,7 @@ class DiceUI(UIElement):
     Author : Amine
     date : 15/12/2022
     """
-    FILL_COLOR:Tuple[int] = (0xFF, 0x00, 0x00)
+    FILL_COLOR:Tuple[int] = (255,94,17)
     POINT_COLOR :Tuple[int]= (0,0,0)
     def __init__(self, screen, position:Tuple[int], dimension:Tuple[int]) -> None:
         super().__init__(screen, position, dimension)

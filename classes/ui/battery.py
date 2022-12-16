@@ -32,7 +32,7 @@ class Battery(UIElement):
             y = (self._position[1] + self._dimension[1]) - (index*battery_lvl_height) - ((index)*Battery.MARGIN)
             pygame.draw.rect(
                 self.screen,
-                (0,255,0),
+                (7,56,122),
                 (x, y, battery_lvl_width, battery_lvl_height)
             )
 
