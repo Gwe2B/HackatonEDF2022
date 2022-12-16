@@ -24,6 +24,7 @@ class Game:
 
     def play_charge_car(self):
         effective_charge = floor(self.dice.get_value()*RequestManager.records[self.__time].get_signal_strenght())
+        self.players[self.player_to_play].increment_score_charge(effective_charge, RequestManager.records[self.__time].get_signal_strenght() == 1.0)
 
         self.players[self.player_to_play].charge(effective_charge)
         self.__next_player()
