@@ -15,10 +15,10 @@ class Dice:
     def __init__(self) -> None:
         self.__value = 0
     
-    def throw(self) :
+    def throw(self) -> None:
         self.__value = random.randint(Dice.BORNE_INF, Dice.BORNE_SUP)
 
-    def get_value(self):
+    def get_value(self) -> int:
         return self.__value
 
 

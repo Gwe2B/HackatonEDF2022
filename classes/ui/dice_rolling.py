@@ -11,13 +11,15 @@ except ModuleNotFoundError:
 class DiceUI(UIElement):
     """
     Author : Amine
-    date : 15/12/2022
+    Date   : 15/12/2022
+    Version: 1
     """
-    FILL_COLOR:Tuple[int] = (255,94,17)
-    POINT_COLOR :Tuple[int]= (0,0,0)
-    def __init__(self, screen, position:Tuple[int], dimension:Tuple[int]) -> None:
+    FILL_COLOR:Tuple[int, int, int] = (255,94,17)
+    POINT_COLOR :Tuple[int, int, int]= (0,0,0)
+
+    def __init__(self, screen:pygame.Surface, position:Tuple[int, int], dimension:Tuple[int, int]) -> None:
         super().__init__(screen, position, dimension)
-        self.__value = 0
+        self.__value:int = 0
     
     def draw(self) -> None:
         points_coordinates = []

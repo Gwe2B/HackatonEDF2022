@@ -8,14 +8,20 @@ except ModuleNotFoundError:
 
 
 class Battery(UIElement):
+    """
+    Author     : Marion Calpena
+    Date       : 15/12/2022
+    Version    : 2
+    """
+    
     BATTERY_MAX_LVL:int = 6
     MARGIN:int = 6
-    FILL_COLOR:Tuple[int] = (0x00, 0xFF, 0x00)
+    FILL_COLOR:Tuple[int, int, int] = (0x00, 0xFF, 0x00)
 
     # TODO: Make sure the path is still correct
     battery_outline = pygame.image.load('assets/battery_outline.png')
 
-    def __init__(self, screen, position:Tuple[int], dimension:Tuple[int]) -> None:
+    def __init__(self, screen:pygame.Surface, position:Tuple[int, int], dimension:Tuple[int, int]) -> None:
         super().__init__(screen, position, dimension)
 
         self.__battery_lvl = 6

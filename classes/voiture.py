@@ -1,5 +1,4 @@
 from typing import Tuple
-from enum import Enum
 
 
 class NotEnoughCharge(ValueError):
@@ -16,10 +15,9 @@ class Voiture:
     """
     Author     : Gwenaël
     Date       : 15/12/2022
-    Version    : 2
+    Version    : 3
     Description: Car representation
     """
-
 
     MAX_CHARGE:int = 6
     COEFF_DEPLACEMENT:int = 10
@@ -35,11 +33,17 @@ class Voiture:
         self.__stats:Tuple[int, int] = (0, 0)
     
     def deplacement(self, distance:int) -> None:
+        """Displace the car
+
+        :param distance: Distance (in case) to displace
+        :type distance: int
+        """
+
         decharge_lvl:int = self.current_case.get_needed_battery()
+        raccourcis:int = self.current_case.action_to_take()
+
         self.__decharge(decharge_lvl)
-        raccourcis = self.current_case.action_to_take()
         self.__position = self.__position + (distance + raccourcis)
-        
         self.__score = self.__score + distance * Voiture.COEFF_DEPLACEMENT
     
     def get_charge_lvl(self) -> int:
@@ -57,7 +61,14 @@ class Voiture:
         else:
             raise NotEnoughCharge
         
-    def increment_score_charge(self, value:int, favorable:bool):
+    def increment_score_charge(self, value:int, favorable:bool) -> None:
+        """Increment the score for a charge of the car
+
+        :param value: Value of the recharge
+        :type value: int
+        :param favorable: The recharge was "favorable" or not?
+        :type favorable: bool
+        """
         if favorable:
             self.__stats = (self.__stats[0] + 1, self.__stats[1])
             self.__score += Voiture.COEFF_CHARGE_FAVORABLE * value

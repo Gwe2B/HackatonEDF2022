@@ -14,22 +14,29 @@ from classes.ui.image import Image
 pygame.init()
 
 class IHM:
-    WHITE:Tuple[int] = (0xFF, 0xFF, 0xFF)
-    BLACK:Tuple[int] = (0x00, 0x00, 0x00)
+    """
+    Author     : Marion Calpena & Gwenaël Guiraud & Amine Maourid
+    Date       : 15/12/2022
+    Version    : 4
+    Description: Hold the UI creation and updates
+    """
+    
+    WHITE:Tuple[int, int, int] = (0xFF, 0xFF, 0xFF)
+    BLACK:Tuple[int, int, int] = (0x00, 0x00, 0x00)
 
-    def __init__(self, size:Tuple[int]) -> None:
-        self.screen_size = size
-        self.screen = pygame.display.set_mode(size)
+    def __init__(self, size:Tuple[int, int]) -> None:
+        self.screen_size:Tuple[int, int] = size
+        self.screen:pygame.Surface = pygame.display.set_mode(size)
         self.screen.fill(IHM.WHITE)
 
         # Initializing components
-        self.dice_display = DiceUI(self.screen, (1125, 300), (100, 100))
-        self.battery_display = Battery(self.screen, (1270, 50), (200, 512))
-        self.buttons = []
-        self.cases = []
+        self.dice_display:DiceUI = DiceUI(self.screen, (1125, 300), (100, 100))
+        self.battery_display:Battery = Battery(self.screen, (1270, 50), (200, 512))
+        self.buttons:list[Button] = []
+        self.cases:list[Case] = []
 
         self.__initializing_board()
-        self.game = Game()
+        self.game:Game = Game()
         self.game.cases = self.cases
         self.game.update_player_pos()
 
@@ -42,20 +49,20 @@ class IHM:
         button.set_on_click(self.game.play_charge_car)
         self.buttons.append(button)
 
-        self.texts = [Text(self.screen, (0,0), (100, 20), 'Charge :')]
+        self.texts:list[Text] = [Text(self.screen, (0,0), (100, 20), 'Charge :')]
         self.charge_state = Text(self.screen, (100,0), (1000, 20), RequestManager.records[self.game.get_time()].get_etat_system())
 
         #Creating the logos
-        self.edfImg = Image(self.screen, (50, 50), (400, 200), 'assets/logoEDF.png')
-        self.jeuImg = Image(self.screen, (50, 300), (400, 200), 'assets/logoJeu.png')
+        self.edf_img:Image = Image(self.screen, (50, 50), (400, 200), 'assets/logoEDF.png')
+        self.jeu_img:Image = Image(self.screen, (50, 300), (400, 200), 'assets/logoJeu.png')
 
 
 
-    def __update_interface(self):
+    def __update_interface(self) -> None:
         self.screen.fill(IHM.WHITE)
         
-        self.edfImg.draw()
-        self.jeuImg.draw()
+        self.edf_img.draw()
+        self.jeu_img.draw()
 
         for b in self.buttons:
             b.draw()
@@ -81,7 +88,7 @@ class IHM:
         self.charge_state.set_text(RequestManager.records[self.game.get_time()].get_etat_system())
         self.charge_state.draw()
         
-    def __initializing_board(self):
+    def __initializing_board(self) -> None:
         #variable de grandeur d'une case
         case_size = (50,50)
         screen_ctr  = (math.floor(self.screen_size[0] / 2), math.floor(self.screen_size[1] / 2))
@@ -116,7 +123,7 @@ class IHM:
             else:
                 pos_next = (pos_next[0], pos_next[1] + buf)
         
-    def mainloop(self):
+    def mainloop(self) -> None:
         while True:
             for event in pygame.event.get():
                 if event.type == QUIT:

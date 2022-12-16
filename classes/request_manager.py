@@ -8,7 +8,8 @@ class RequestManager:
     Author  : Amine
     Version : 1
     Date    : 15/12/2022
-    Description : this class handles the request to API and returning simple exploitable data as tha state for charge and corresponding date
+    Description : This class handles the request to API and returning simple
+    exploitable data as tha state for charge and corresponding date.
 
     """
     API_URL:str = 'https://opendata-corse.edf.fr/api/records/1.0/search/?dataset=signal-reseau-corse-recharge-vehicule-electrique&q=&rows=300&sort=-date&facet=date'

@@ -1,6 +1,14 @@
 from datetime import datetime
 
 class ApiField:
+    """
+    Author     : Gwenaël Guiraud
+    Date       : 15/12/2022
+    Version    : 1
+    Description: Logic representation of the necessary informations from the EDF
+    API.
+    """
+    
     def __init__(self, **kwargs) -> None:
         self.__signal_strenght = kwargs['puissance_maximale'] / 100
         self.__etat_system = kwargs['etat_du_systeme_electrique_pour_la_recharge']
